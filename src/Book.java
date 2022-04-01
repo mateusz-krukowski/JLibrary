@@ -15,4 +15,11 @@ public class Book {
         this.isbn = bookIsbn;
     }
 
+    @Override
+    public String toString() {
+        return title + "; " + author + "; " +  releaseDate + "; " + pages + "; " + publisher + "; " + isbn;
+    }
+    void printInfo(){
+        System.out.println(this);
+    }
 }
