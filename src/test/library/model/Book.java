@@ -75,7 +75,10 @@ public class Book {
 
     @Override
     public String toString() {
-        return title + "; " + author + "; " +  releaseDate + "; " + pages + "; " + publisher + "; " + isbn;
+        if(isbn==null) return title + "; " + author + "; " + releaseDate + "; " + pages + "; " + publisher;
+
+        return title + "; " + author + "; " + releaseDate + "; " + pages + "; " + publisher + "; " + isbn;
+
     }
 
     public void printInfo(){
