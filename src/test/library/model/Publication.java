@@ -5,6 +5,12 @@ public abstract class Publication {
     private String title;
     private String publisher;
 
+    public Publication(int year, String title, String publisher) {
+        this.year = year;
+        this.title = title;
+        this.publisher = publisher;
+    }
+
     public int getYear() {
         return year;
     }
