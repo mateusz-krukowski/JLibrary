@@ -41,7 +41,7 @@ public class LibraryControl {
                     printer.printLine(e.getMessage());
             }
             catch(InputMismatchException e){
-                printer.printLine(e.getMessage());
+                printer.printLine("Podaj liczbę!");
             }
         }
         return option;

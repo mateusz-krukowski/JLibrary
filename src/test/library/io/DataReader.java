@@ -45,9 +45,12 @@ public class DataReader {
     }
 
     public int getInt(){
-        int number = sc.nextInt();
-        sc.nextLine();
-        return number;
+        try {
+            return sc.nextInt();
+        }
+        finally {               //mastermind
+            sc.nextLine();
+        }
     }
 
     public void close(){ sc.close(); }
