@@ -1,8 +1,12 @@
 package test.library.app;
 
+import test.library.exception.DataExportException;
+import test.library.exception.DataImportException;
 import test.library.exception.NoSuchOptionException;
 import test.library.io.ConsolePrinter;
 import test.library.io.DataReader;
+import test.library.io.file.FileManager;
+import test.library.io.file.FileManagerBuilder;
 import test.library.model.Library;
 import test.library.model.Book;
 import test.library.model.Magazine;
@@ -14,8 +18,24 @@ public class LibraryControl {
     private Library library = new Library();
     private ConsolePrinter printer = new ConsolePrinter();
     private DataReader dataReader = new DataReader(printer); //dependency injection
+    private FileManager fileManager;
+
+    public LibraryControl(){
+        fileManager = new FileManagerBuilder(printer,dataReader).build();
+
+        try{
+            library = fileManager.importData();
+        }
+        catch(DataImportException e){
+            printer.printLine(e.getMessage());
+            printer.printLine("Zainicjowano nową bazę");
+            library = new Library();
+        }
+
+    }
 
     public void controlLoop(){
+
         Option option;
         do {
             printOptions();
@@ -56,6 +76,11 @@ public class LibraryControl {
     }
 
     private void exit() {
+
+        try {   fileManager.exportData(library);
+        } catch (DataExportException e){
+         printer.printLine(e.getMessage());
+        }
         printer.printLine("Do widzenia");
         dataReader.close();
     }
@@ -122,5 +147,4 @@ public class LibraryControl {
             }
         }
     }
-
 }

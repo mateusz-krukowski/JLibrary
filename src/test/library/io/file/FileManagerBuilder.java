@@ -1,5 +1,6 @@
 package test.library.io.file;
 
+import test.library.exception.NoSuchFileTypeException;
 import test.library.io.ConsolePrinter;
 import test.library.io.DataReader;
 
@@ -13,6 +14,36 @@ public class FileManagerBuilder {
     }
 
     public FileManager build(){
-        return null;
+        printer.printLine("Wybierz format danych: ");
+        FileType fileType =  getFileType();
+        switch(fileType){
+            case SERIAL: return new SerializableFileManager();
+            //case CSV:
+            default: throw new NoSuchFileTypeException("Nieobs³ugiwany typ danych");
+        }
+    }
+
+    private FileType getFileType() {
+        boolean typeOk = false;
+        FileType result = null;
+        do {
+            printTypes();
+            String s = reader.getString().toUpperCase();
+            try {
+                result = FileType.valueOf(s);
+                typeOk = true;
+            } catch (IllegalArgumentException e) {
+                printer.printLine("Nieobs³ugiwany typ danych. Wybierz ponownie");
+            }
+
+        } while(!typeOk);
+
+        return result;
+    }
+
+    private void printTypes() {
+        for (FileType value : FileType.values()){
+            printer.printLine(value.name());
+        }
     }
 }

@@ -11,7 +11,7 @@ public class DataReader {
 
     public DataReader(ConsolePrinter printer){
         this.printer = printer;
-    }
+    } //dependency injection
 
     public Book createBook(){
         printer.printLine("Tytul: ");
@@ -55,6 +55,8 @@ public class DataReader {
             sc.nextLine();
         }
     }
-
+    public String getString(){
+        return sc.nextLine();
+    }
     public void close(){ sc.close(); }
 }

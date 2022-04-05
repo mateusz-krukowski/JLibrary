@@ -8,7 +8,7 @@ import java.io.*;
 
 public class SerializableFileManager implements FileManager{
 
-    public static final String FILE_NAME = "Library.o";
+    public static final String FILE_NAME = "src/Library.o";
 
     @Override
     public Library importData() {
@@ -16,7 +16,6 @@ public class SerializableFileManager implements FileManager{
         try (   //try-with-resources - streams are automatically closed
               FileInputStream fis = new FileInputStream(FILE_NAME);
               ObjectInputStream ois = new ObjectInputStream(fis);
-
         ){
 
             return (Library)ois.readObject(); //casting object into library
