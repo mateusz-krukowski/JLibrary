@@ -11,9 +11,9 @@ import java.util.InputMismatchException;
 
 public class LibraryControl {
 
-    private DataReader dataReader = new DataReader();
     private Library library = new Library();
     private ConsolePrinter printer = new ConsolePrinter();
+    private DataReader dataReader = new DataReader(printer); //dependency injection
 
     public void controlLoop(){
         Option option;
@@ -23,7 +23,7 @@ public class LibraryControl {
             switch(option){
                 case EXIT: exit(); break;
                 case ADD_BOOK: addBook(); break;
-                case ADD_MAGAZINE: addMagazie(); break;
+                case ADD_MAGAZINE: addMagazine(); break;
                 case PRINT_BOOKS: printBooks(); break;
                 case PRINT_MAGAZINES: printMagazines(); break;
             }
@@ -32,15 +32,16 @@ public class LibraryControl {
 
     private Option getOption() {
         boolean optionOk = false;
-        Option  option = null;
+        Option option = null;
         while(!optionOk){
             try{
                 option = Option.createFromint(dataReader.getInt());
                 optionOk = true;
+                return option;
             } catch (NoSuchOptionException e){
                     printer.printLine(e.getMessage());
             }
-            catch(InputMismatchException e){
+            catch(InputMismatchException i){
                 printer.printLine("Podaj liczbę!");
             }
         }
@@ -48,29 +49,37 @@ public class LibraryControl {
     }
 
     private void printOptions() {
-        System.out.println("Wybierz opcje: ");
+        printer.printLine("Wybierz opcje: ");
         for(Option i: Option.values()){
-            System.out.println(i);
+            printer.printLine(i.toString());
         }
     }
 
     private void exit() {
-        System.out.println("Do widzenia");
+        printer.printLine("Do widzenia");
         dataReader.close();
     }
 
     private void addBook() {
-        Book book = dataReader.createBook();
-        library.addBook(book);
+        try {
+            Book book = dataReader.createBook();
+            library.addBook(book);
+        } catch(InputMismatchException e){
+            printer.printLine("Nie udało się dodać książki, nieprawidłowa dana");
+        }
     }
 
     private void printBooks() {
         printer.printBooks(library.getPublications());
     }
 
-    private void addMagazie() {
-        Magazine magazine = dataReader.createMagazine();
-        library.addMagazine(magazine);
+    private void addMagazine() {
+        try {
+            Magazine magazine = dataReader.createMagazine();
+            library.addMagazine(magazine);
+        } catch (InputMismatchException e) {
+            printer.printLine("Nie udało się dodać magazynu, nieprawidłowa dana");
+        }
     }
 
     private void printMagazines() {

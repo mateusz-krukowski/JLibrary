@@ -7,38 +7,41 @@ import java.util.Scanner;
 
 public class DataReader {
     private Scanner sc = new Scanner(System.in);
+    private ConsolePrinter printer;
+
+    public DataReader(ConsolePrinter printer){
+        this.printer = printer;
+    }
 
     public Book createBook(){
-        System.out.println("Tytul: ");
+        printer.printLine("Tytul: ");
         String title = sc.nextLine();
-        System.out.println("Autor:");
+        printer.printLine("Autor:");
         String author = sc.nextLine();
-        System.out.println("Rok wydania: ");
-        int releaseDate = sc.nextInt();
-        sc.nextLine();
-        System.out.println("Liczba stron: ");
-        int pages = sc.nextInt();
-        sc.nextLine();
-        System.out.println("Wydawnictwo: ");
+        printer.printLine("Rok wydania: ");
+        int releaseDate = getInt();
+        printer.printLine("Liczba stron: ");
+        int pages = getInt();
+        printer.printLine("Wydawnictwo: ");
         String publisher = sc.nextLine();
-        System.out.println("ISBN: ");
+        printer.printLine("ISBN: ");
         String isbn = sc.nextLine();
 
         return new Book(title,author,releaseDate,pages,publisher,isbn);
     }
 
     public Magazine createMagazine(){
-        System.out.println("Tytul: ");
+        printer.printLine("Tytul: ");
         String title = sc.nextLine();
-        System.out.println("Wydawca:");
+        printer.printLine("Wydawca:");
         String publisher = sc.nextLine();
-        System.out.println("Jezyk: ");
+        printer.printLine("Jezyk: ");
         String language = sc.nextLine();
-        System.out.println("Rok: ");
+        printer.printLine("Rok: ");
         int year = getInt();
-        System.out.println("Miesiac: ");
+        printer.printLine("Miesiac: ");
         int month = getInt();
-        System.out.println("Dzien: ");
+        printer.printLine("Dzien: ");
         int day = getInt();
 
         return new Magazine(title,publisher,language,year,month,day);
