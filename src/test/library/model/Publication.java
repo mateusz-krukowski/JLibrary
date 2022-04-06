@@ -43,7 +43,7 @@ public abstract class Publication implements Serializable {
 
     @Override
     public String toString() {
-        return getTitle() + ", " + getPublisher() + "," + getYear();
+        return getTitle() + ", " + getPublisher() + ", " + getYear();
     }
 
     public abstract String toCsv();

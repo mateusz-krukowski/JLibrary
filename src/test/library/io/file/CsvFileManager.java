@@ -23,6 +23,7 @@ public class CsvFileManager implements FileManager{
             while(scanner.hasNextLine()){
                 String line = scanner.nextLine();
                 Publication publication = createObjectFromString(line);
+                library.addPublication(publication);
             }
         return library;
         }
