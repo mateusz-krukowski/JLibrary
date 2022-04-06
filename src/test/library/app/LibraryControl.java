@@ -1,20 +1,16 @@
 package test.library.app;
 
-import test.library.exception.DataExportException;
-import test.library.exception.DataImportException;
-import test.library.exception.InvalidDataException;
-import test.library.exception.NoSuchOptionException;
+import test.library.exception.*;
 import test.library.io.ConsolePrinter;
 import test.library.io.DataReader;
 import test.library.io.file.FileManager;
 import test.library.io.file.FileManagerBuilder;
-import test.library.model.Library;
-import test.library.model.Book;
-import test.library.model.Magazine;
-import test.library.model.Publication;
+import test.library.model.*;
 import test.library.model.comparator.AlphabeticalComparator;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.InputMismatchException;
 
 public class LibraryControl {
@@ -52,6 +48,9 @@ public class LibraryControl {
                 case PRINT_MAGAZINES: printMagazines(); break;
                 case DELETE_BOOK: deleteBook(); break;
                 case DELETE_MAGAZINE: deleteMagazine(); break;
+                case ADD_USER: addUser(); break;
+                case PRINT_USERS: printUsers(); break;
+                default: printer.printLine("Nie ma takiej opcji, wprowadz ponownie");
             }
         } while(option !=Option.EXIT);
     }
@@ -109,14 +108,7 @@ public class LibraryControl {
     }
 
     private void printBooks() {
-        Publication[] publications = getSortedPublications();
-        printer.printBooks(publications);
-    }
-
-    private Publication[] getSortedPublications() {
-        Publication[] publications = library.getPublications();
-        Arrays.sort(publications, new AlphabeticalComparator());
-        return publications;
+        printer.printBooks(library.getPublications().values());
     }
 
     private void addMagazine() {
@@ -134,8 +126,20 @@ public class LibraryControl {
         } else printer.printLine("Brak wskazanego magazynu");
     }
     private void printMagazines() {
-        Publication[] publications = getSortedPublications();
-        printer.printMagazines(publications);
+        printer.printMagazines(library.getPublications().values());
+    }
+
+    private void printUsers() {
+        printer.printUsers(library.getUsers().values());
+    }
+
+    private void addUser() {
+        LibraryUser libraryUser = dataReader.createLibraryUser();
+        try{
+            library.addUser(libraryUser);
+        } catch(UserAlreadyExistsException e){
+            printer.printLine(e.getMessage());
+        }
     }
 //======================================================================//
     private enum Option {
@@ -145,7 +149,9 @@ public class LibraryControl {
         PRINT_BOOKS(3,"Wyswietl dostepne ksiazki"),
         PRINT_MAGAZINES(4,"Wyswietl dostepne magazyny"),
         DELETE_BOOK(5,"Usun ksiazke"),
-        DELETE_MAGAZINE(6, "Usun magazyn");
+        DELETE_MAGAZINE(6, "Usun magazyn"),
+        ADD_USER(7, "Dodaj uzytkownika"),
+        PRINT_USERS(8,"Wyswietl uzytkownikow");
 
         private final int value;
         private final String description;
