@@ -11,7 +11,10 @@ import test.library.io.file.FileManagerBuilder;
 import test.library.model.Library;
 import test.library.model.Book;
 import test.library.model.Magazine;
+import test.library.model.Publication;
+import test.library.model.comparator.AlphabeticalComparator;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 public class LibraryControl {
@@ -106,7 +109,9 @@ public class LibraryControl {
     }
 
     private void printBooks() {
-        printer.printBooks(library.getPublications());
+        Publication[] publications = library.getPublications();
+        Arrays.sort(publications, new AlphabeticalComparator());
+        printer.printBooks(publications);
     }
 
     private void addMagazine() {

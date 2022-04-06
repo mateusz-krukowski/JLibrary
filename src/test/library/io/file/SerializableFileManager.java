@@ -27,7 +27,6 @@ public class SerializableFileManager implements FileManager{
         } catch (ClassNotFoundException e) {
             throw new DataImportException("Niezgodny typ danych w pliku " + FILE_NAME);
         }
-
     }
 
     @Override
@@ -46,6 +45,5 @@ public class SerializableFileManager implements FileManager{
         catch (IOException e) {
             throw new DataExportException("Błąd zapisu danych do pliku " + FILE_NAME);
         }
-
     }
 }

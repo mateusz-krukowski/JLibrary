@@ -52,4 +52,6 @@ public class Magazine extends Publication {
                day + ";" +
                language;
     }
+
+
 }
