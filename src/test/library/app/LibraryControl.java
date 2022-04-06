@@ -2,6 +2,7 @@ package test.library.app;
 
 import test.library.exception.DataExportException;
 import test.library.exception.DataImportException;
+import test.library.exception.InvalidDataException;
 import test.library.exception.NoSuchOptionException;
 import test.library.io.ConsolePrinter;
 import test.library.io.DataReader;
@@ -26,7 +27,7 @@ public class LibraryControl {
         try{
             library = fileManager.importData();
         }
-        catch(DataImportException e){
+        catch(DataImportException | InvalidDataException e){
             printer.printLine(e.getMessage());
             printer.printLine("Zainicjowano nowa baze");
             library = new Library();
@@ -88,7 +89,7 @@ public class LibraryControl {
     private void addBook() {
         try {
             Book book = dataReader.createBook();
-            library.addBook(book);
+            library.addPublication(book);
         } catch(InputMismatchException e){
             printer.printLine("Nie udalo się dodac ksiazki, nieprawidlowa dana");
         }
@@ -101,7 +102,7 @@ public class LibraryControl {
     private void addMagazine() {
         try {
             Magazine magazine = dataReader.createMagazine();
-            library.addMagazine(magazine);
+            library.addPublication(magazine);
         } catch (InputMismatchException e) {
             printer.printLine("Nie udalo sie dodac magazynu, nieprawidlowa dana");
         }
