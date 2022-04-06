@@ -1,6 +1,7 @@
 package test.library.model;
 
 public class Magazine extends Publication {
+    public static final String TYPE = "Magazyn";
     private int month;
     private int day;
     private String language;
@@ -38,6 +39,17 @@ public class Magazine extends Publication {
 
     @Override
     public String toString() {
-        return getTitle() + "; " + getPublisher() + "; " + getLanguage() + "; " + getYear() + "; " + getMonth() + "; " + getDay();
+        return super.toString() + ", " + getMonth() + ", " + getDay() + ", " + getLanguage();
+    }
+
+    @Override
+    public String toCsv() {
+        return TYPE + ";" +
+               getTitle() + ";" +
+               getPublisher() + ";" +
+               getYear() + ";" +
+               month + ";" +
+               day + ";" +
+               language;
     }
 }

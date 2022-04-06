@@ -18,8 +18,8 @@ public class FileManagerBuilder {
         FileType fileType =  getFileType();
         switch(fileType){
             case SERIAL: return new SerializableFileManager();
-            //case CSV:
-            default: throw new NoSuchFileTypeException("Nieobs≥ugiwany typ danych");
+            case CSV: return new CsvFileManager();
+            default: throw new NoSuchFileTypeException("Nieobs≈Çugiwany typ danych");
         }
     }
 
@@ -33,7 +33,7 @@ public class FileManagerBuilder {
                 result = FileType.valueOf(s);
                 typeOk = true;
             } catch (IllegalArgumentException e) {
-                printer.printLine("Nieobs≥ugiwany typ danych. Wybierz ponownie");
+                printer.printLine("Nieobs≈Çugiwany typ danych. Wybierz ponownie");
             }
 
         } while(!typeOk);

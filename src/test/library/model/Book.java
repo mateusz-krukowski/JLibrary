@@ -1,6 +1,7 @@
 package test.library.model;
 
 public class Book extends Publication{
+    public static final String TYPE = "Ksiazka";
    private String author;
    private int pages;
    private String isbn;
@@ -43,4 +44,14 @@ public class Book extends Publication{
 
     }
 
+    @Override
+    public String toCsv() {
+        return TYPE + ";" +
+               getTitle() + ";" +
+               getAuthor() + ";" +
+               getYear() + ";" +
+               getPages() + ";" +
+               getPublisher() + ";" +
+               getIsbn();
+    }
 }

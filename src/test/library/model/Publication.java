@@ -40,4 +40,11 @@ public abstract class Publication implements Serializable {
     public void printInfo(){
         System.out.println(this);
     }
+
+    @Override
+    public String toString() {
+        return getTitle() + ", " + getPublisher() + "," + getYear();
+    }
+
+    public abstract String toCsv();
 }

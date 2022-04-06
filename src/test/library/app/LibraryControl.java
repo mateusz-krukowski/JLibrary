@@ -28,7 +28,7 @@ public class LibraryControl {
         }
         catch(DataImportException e){
             printer.printLine(e.getMessage());
-            printer.printLine("Zainicjowano nową bazę");
+            printer.printLine("Zainicjowano nowa baze");
             library = new Library();
         }
 
@@ -62,7 +62,7 @@ public class LibraryControl {
                     printer.printLine(e.getMessage());
             }
             catch(InputMismatchException i){
-                printer.printLine("Podaj liczbę!");
+                printer.printLine("Podaj liczbe!");
             }
         }
         return option;
@@ -90,7 +90,7 @@ public class LibraryControl {
             Book book = dataReader.createBook();
             library.addBook(book);
         } catch(InputMismatchException e){
-            printer.printLine("Nie udało się dodać książki, nieprawidłowa dana");
+            printer.printLine("Nie udalo się dodac ksiazki, nieprawidlowa dana");
         }
     }
 
@@ -103,7 +103,7 @@ public class LibraryControl {
             Magazine magazine = dataReader.createMagazine();
             library.addMagazine(magazine);
         } catch (InputMismatchException e) {
-            printer.printLine("Nie udało się dodać magazynu, nieprawidłowa dana");
+            printer.printLine("Nie udalo sie dodac magazynu, nieprawidlowa dana");
         }
     }
 
@@ -112,11 +112,11 @@ public class LibraryControl {
     }
 //======================================================================//
     private enum Option {
-        EXIT(0,"Wyjście z programu"),
-        ADD_BOOK(1, "Dodaj nową książkę"),
+        EXIT(0,"Wyjscie z programu"),
+        ADD_BOOK(1, "Dodaj nowa ksiazke"),
         ADD_MAGAZINE(2,"Dodaj nowy magazyn"),
-        PRINT_BOOKS(3,"Wyświetl dostępne książki"),
-        PRINT_MAGAZINES(4,"Wyświetl dostępne magazyny");
+        PRINT_BOOKS(3,"Wyswietl dostepne ksiazki"),
+        PRINT_MAGAZINES(4,"Wyswietl dostepne magazyny");
 
         private final int value;
         private final String description;

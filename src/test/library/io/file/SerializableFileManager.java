@@ -8,7 +8,7 @@ import java.io.*;
 
 public class SerializableFileManager implements FileManager{
 
-    public static final String FILE_NAME = "src/Library.o";
+    public static final String FILE_NAME = "Library.o";
 
     @Override
     public Library importData() {
@@ -23,7 +23,7 @@ public class SerializableFileManager implements FileManager{
         } catch (FileNotFoundException e) {
             throw new DataImportException("Brak pliku " + FILE_NAME);
         } catch (IOException e) {
-            throw new DataImportException("B³¹d odczytu pliku " + FILE_NAME);
+            throw new DataImportException("BÅ‚Ä…d odczytu pliku " + FILE_NAME);
         } catch (ClassNotFoundException e) {
             throw new DataImportException("Niezgodny typ danych w pliku " + FILE_NAME);
         }
@@ -44,7 +44,7 @@ public class SerializableFileManager implements FileManager{
             throw new DataExportException("Brak pliku " + FILE_NAME);
         }
         catch (IOException e) {
-            throw new DataExportException("B³¹d zapisu danych do pliku " + FILE_NAME);
+            throw new DataExportException("BÅ‚Ä…d zapisu danych do pliku " + FILE_NAME);
         }
 
     }
