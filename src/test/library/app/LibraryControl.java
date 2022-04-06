@@ -109,9 +109,14 @@ public class LibraryControl {
     }
 
     private void printBooks() {
+        Publication[] publications = getSortedPublications();
+        printer.printBooks(publications);
+    }
+
+    private Publication[] getSortedPublications() {
         Publication[] publications = library.getPublications();
         Arrays.sort(publications, new AlphabeticalComparator());
-        printer.printBooks(publications);
+        return publications;
     }
 
     private void addMagazine() {
@@ -129,7 +134,8 @@ public class LibraryControl {
         } else printer.printLine("Brak wskazanego magazynu");
     }
     private void printMagazines() {
-        printer.printMagazines(library.getPublications());
+        Publication[] publications = getSortedPublications();
+        printer.printMagazines(publications);
     }
 //======================================================================//
     private enum Option {
