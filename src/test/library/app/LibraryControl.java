@@ -47,6 +47,8 @@ public class LibraryControl {
                 case ADD_MAGAZINE: addMagazine(); break;
                 case PRINT_BOOKS: printBooks(); break;
                 case PRINT_MAGAZINES: printMagazines(); break;
+                case DELETE_BOOK: deleteBook(); break;
+                case DELETE_MAGAZINE: deleteMagazine(); break;
             }
         } while(option !=Option.EXIT);
     }
@@ -94,6 +96,14 @@ public class LibraryControl {
             printer.printLine("Nie udalo się dodac ksiazki, nieprawidlowa dana");
         }
     }
+    private void deleteBook(){
+        Book book = dataReader.createBook();
+        if(library.removePublication(book)){
+            printer.printLine("ksiazka " + book + " zostala pomyslnie usunieta");
+        } else {
+            printer.printLine("Brak wskazanej ksiazki");
+        }
+    }
 
     private void printBooks() {
         printer.printBooks(library.getPublications());
@@ -107,7 +117,12 @@ public class LibraryControl {
             printer.printLine("Nie udalo sie dodac magazynu, nieprawidlowa dana");
         }
     }
-
+    private void deleteMagazine(){
+        Magazine magazine = dataReader.createMagazine();
+        if(library.removePublication(magazine)){
+            printer.printLine("Magazyn " + magazine + " zostal pomyslnie usuniety");
+        } else printer.printLine("Brak wskazanego magazynu");
+    }
     private void printMagazines() {
         printer.printMagazines(library.getPublications());
     }
@@ -117,7 +132,9 @@ public class LibraryControl {
         ADD_BOOK(1, "Dodaj nowa ksiazke"),
         ADD_MAGAZINE(2,"Dodaj nowy magazyn"),
         PRINT_BOOKS(3,"Wyswietl dostepne ksiazki"),
-        PRINT_MAGAZINES(4,"Wyswietl dostepne magazyny");
+        PRINT_MAGAZINES(4,"Wyswietl dostepne magazyny"),
+        DELETE_BOOK(5,"Usun ksiazke"),
+        DELETE_MAGAZINE(6, "Usun magazyn");
 
         private final int value;
         private final String description;
