@@ -4,10 +4,7 @@ import test.library.app.LibraryControl;
 import test.library.exception.DataExportException;
 import test.library.exception.DataImportException;
 import test.library.exception.InvalidDataException;
-import test.library.model.Book;
-import test.library.model.Library;
-import test.library.model.Magazine;
-import test.library.model.Publication;
+import test.library.model.*;
 
 import java.io.*;
 import java.util.Collection;
@@ -18,6 +15,7 @@ import java.util.Scanner;
 
 public class CsvFileManager implements FileManager{
     private static final String FILE_NAME = "Library.csv";
+    private static final String USERS_FILE_NAME = "Users.csv";
 
     @Override
     public Library importData() {
@@ -36,6 +34,27 @@ public class CsvFileManager implements FileManager{
     }
     @Override
     public void exportData(Library library) {
+        exportPublications(library);
+        exportUsers(library);
+
+    }
+
+    private void exportUsers(Library library) {
+        Collection<LibraryUser> users = library.getUsers().values();
+        try(
+                FileWriter fileWriter = new FileWriter(USERS_FILE_NAME);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        ) {
+            for (LibraryUser user : users) {
+                bufferedWriter.write(user.toCsv());
+                bufferedWriter.newLine();
+            }
+        } catch (IOException e ){
+            throw new DataExportException("Blad zapisu danych do pliku");
+        }
+    }
+
+    private void exportPublications(Library library) {
         Collection<Publication> publications = library.getPublications().values();
         try(
                 FileWriter fileWriter = new FileWriter(FILE_NAME);
@@ -49,6 +68,7 @@ public class CsvFileManager implements FileManager{
             throw new DataExportException("Blad zapisu danych do pliku");
         }
     }
+
     private Publication createObjectFromString(String line) {
         String[] split = line.split(";");
         String type = split[0];
@@ -81,6 +101,4 @@ public class CsvFileManager implements FileManager{
 
         return new Book(title,author,year,pages,publisher,isbn);
     }
-
-
 }

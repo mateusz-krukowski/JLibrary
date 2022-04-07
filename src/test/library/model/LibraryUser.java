@@ -35,7 +35,7 @@ public class LibraryUser extends User {
         return false;
     }
     @Override
-    String toCsv() {
+    public String toCsv() {
         return getFirstName() + "; " + getLastName() + " ;" + getPesel();
     }
 }

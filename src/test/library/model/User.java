@@ -58,5 +58,5 @@ public abstract class User implements Serializable {
         return getFirstName() + " " + getLastName() + " " + getPesel();
     }
 
-    abstract String toCsv();
+    abstract public String toCsv();
 }
