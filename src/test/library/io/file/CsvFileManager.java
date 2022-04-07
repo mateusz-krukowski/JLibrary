@@ -1,6 +1,5 @@
 package test.library.io.file;
 
-import test.library.app.LibraryControl;
 import test.library.exception.DataExportException;
 import test.library.exception.DataImportException;
 import test.library.exception.InvalidDataException;
@@ -8,8 +7,6 @@ import test.library.model.*;
 
 import java.io.*;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 
@@ -20,23 +17,49 @@ public class CsvFileManager implements FileManager{
     @Override
     public Library importData() {
         Library library = new Library();
+        importPublications(library);
+        importUsers(library);
+        return library;
+    }
+
+    private void importPublications(Library library) {
         try(Scanner scanner = new Scanner(new File(FILE_NAME))){
             while(scanner.hasNextLine()){
                 String line = scanner.nextLine();
                 Publication publication = createObjectFromString(line);
                 library.addPublication(publication);
             }
-        return library;
         }
         catch (FileNotFoundException e ){
             throw new DataImportException("Brak pliku " + FILE_NAME);
         }
     }
+
+    private void importUsers(Library library) {
+        try(Scanner scanner = new Scanner(new File(USERS_FILE_NAME))){
+            while(scanner.hasNextLine()){
+                String line = scanner.nextLine();
+                LibraryUser libraryUser = createUserFromString(line);
+                library.addUser(libraryUser);
+            }
+        }
+        catch (FileNotFoundException e ){
+            throw new DataImportException("Brak pliku " + USERS_FILE_NAME);
+        }
+    }
+
+    private LibraryUser createUserFromString(String line) {
+        String[] split = line.split(";");
+        String firstName = split[0];
+        String lastName = split[1];
+        String pesel = split[2];
+        return new LibraryUser(firstName,lastName,pesel);
+    }
+
     @Override
     public void exportData(Library library) {
         exportPublications(library);
         exportUsers(library);
-
     }
 
     private void exportUsers(Library library) {
@@ -75,12 +98,12 @@ public class CsvFileManager implements FileManager{
         if(Book.TYPE.equals(type)){
             return createBookFromCsv(split);
         } else if(Magazine.TYPE.equals(type)){
-            return createMagazineFromCvs(split);
+            return createMagazineFromCsv(split);
         } throw new InvalidDataException("Nieznany  typ publikacji " + type);
 
     }
 
-    private Magazine createMagazineFromCvs(String[] s) {
+    private Magazine createMagazineFromCsv(String[] s) {
         String title = s[1];
         String publisher = s[2];
         int year = Integer.valueOf(s[3]);
