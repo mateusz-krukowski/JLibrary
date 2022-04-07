@@ -3,7 +3,7 @@ package test.library.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class User implements Serializable {
+public abstract class User implements Serializable {
     private String firstName;
     private String lastName;
     private String pesel;
@@ -57,4 +57,6 @@ public class User implements Serializable {
     public String toString() {
         return getFirstName() + " " + getLastName() + " " + getPesel();
     }
+
+    abstract String toCsv();
 }

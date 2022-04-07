@@ -11,6 +11,7 @@ public class LibraryUser extends User {
         super(firstName, lastName, pesel);
     }
 
+
     public List<Publication> getPublicationHistory() {
         return publicationHistory;
     }
@@ -32,5 +33,9 @@ public class LibraryUser extends User {
             return true;
         }
         return false;
+    }
+    @Override
+    String toCsv() {
+        return getFirstName() + "; " + getLastName() + " ;" + getPesel();
     }
 }

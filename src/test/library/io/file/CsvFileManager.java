@@ -34,7 +34,21 @@ public class CsvFileManager implements FileManager{
             throw new DataImportException("Brak pliku " + FILE_NAME);
         }
     }
-
+    @Override
+    public void exportData(Library library) {
+        Collection<Publication> publications = library.getPublications().values();
+        try(
+                FileWriter fileWriter = new FileWriter(FILE_NAME);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        ) {
+            for (Publication publication : publications) {
+                bufferedWriter.write(publication.toCsv());
+                bufferedWriter.newLine();
+            }
+        } catch (IOException e ){
+            throw new DataExportException("Blad zapisu danych do pliku");
+        }
+    }
     private Publication createObjectFromString(String line) {
         String[] split = line.split(";");
         String type = split[0];
@@ -68,19 +82,5 @@ public class CsvFileManager implements FileManager{
         return new Book(title,author,year,pages,publisher,isbn);
     }
 
-    @Override
-    public void exportData(Library library) {
-        Collection<Publication> publications = library.getPublications().values();
-        try(
-                FileWriter fileWriter = new FileWriter(FILE_NAME);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                ) {
-            for (Publication publication : publications) {
-                bufferedWriter.write(publication.toCsv());
-                bufferedWriter.newLine();
-            }
-        } catch (IOException e ){
-            throw new DataExportException("Blad zapisu danych do pliku");
-        }
-    }
+
 }
