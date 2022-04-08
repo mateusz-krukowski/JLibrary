@@ -6,7 +6,6 @@ import test.library.io.DataReader;
 import test.library.io.file.FileManager;
 import test.library.io.file.FileManagerBuilder;
 import test.library.model.*;
-import test.library.model.comparator.AlphabeticalComparator;
 
 import java.util.Comparator;
 import java.util.InputMismatchException;
@@ -29,7 +28,6 @@ public class LibraryControl {
             printer.printLine("Zainicjowano nowa baze");
             library = new Library();
         }
-
     }
 
     public void controlLoop(){
@@ -132,9 +130,10 @@ public class LibraryControl {
     }
 
     private void printUsers() { //comparator is a functional interface
-        printer.printUsers(library.getSortedUsers((Comparator<LibraryUser>)
-                (p1, p2) -> p1.getLastName().compareToIgnoreCase(p2.getLastName())
-                ));
+        printer.printUsers(library.getSortedUsers(
+                //(o1, o2) -> o1.getLastName().compareToIgnoreCase(o2.getLastName())
+                Comparator.comparing(User::getLastName)
+        ));
     }
 
     private void addUser() {
