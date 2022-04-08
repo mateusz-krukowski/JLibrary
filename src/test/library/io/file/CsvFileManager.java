@@ -90,7 +90,6 @@ public class CsvFileManager implements FileManager{
             throw new DataExportException("Blad zapisu danych do pliku");
         }
     }
-
     private Publication createObjectFromString(String line) {
         String[] split = line.split(";");
         String type = split[0];
