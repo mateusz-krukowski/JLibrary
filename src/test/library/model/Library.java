@@ -19,9 +19,9 @@ public class Library implements Serializable {
     }
 
     public Collection<Publication> getSortedPublications(Comparator comparator) {
-        ArrayList<Publication> publications = new ArrayList<>(this.publications.values());
-        publications.sort(comparator);
-        return publications;
+        ArrayList<Publication> pub = new ArrayList<>(publications.values());
+        pub.sort(comparator);
+        return pub;
     }
 
     public Map<String, LibraryUser> getUsers() {
