@@ -8,6 +8,7 @@ import test.library.io.file.FileManagerBuilder;
 import test.library.model.*;
 import test.library.model.comparator.AlphabeticalComparator;
 
+import java.util.Comparator;
 import java.util.InputMismatchException;
 
 public class LibraryControl {
@@ -123,11 +124,16 @@ public class LibraryControl {
         } else printer.printLine("Brak wskazanego magazynu");
     }
     private void printMagazines() {
-        printer.printMagazines(library.getPublications().values());
+        printer.printMagazines(library.getSortedPublications(new AlphabeticalComparator()));
     }
 
     private void printUsers() {
-        printer.printUsers(library.getSortedUsers(new AlphabeticalComparator()));
+        printer.printUsers(library.getSortedUsers(new Comparator<LibraryUser>() {
+            @Override
+            public int compare(LibraryUser p1, LibraryUser p2) {
+                return p1.getLastName().compareToIgnoreCase(p2.getLastName());
+            }
+        }));
     }
 
     private void addUser() {
