@@ -2,11 +2,10 @@ package test.library.model;
 
 import test.library.exception.PublicationAlreadyExistsException;
 import test.library.exception.UserAlreadyExistsException;
+import test.library.model.comparator.AlphabeticalComparator;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Library implements Serializable {
 
@@ -19,7 +18,19 @@ public class Library implements Serializable {
         return publications;
     }
 
+    public Collection<Publication> getSortedPublications(Comparator comparator) {
+        ArrayList<Publication> publications = new ArrayList<>(this.publications.values());
+        publications.sort(comparator);
+        return publications;
+    }
+
     public Map<String, LibraryUser> getUsers() {
+        return users;
+    }
+
+    public Collection<LibraryUser> getSortedUsers(Comparator comparator){
+        ArrayList<LibraryUser> users = new ArrayList<>(this.users.values());
+        users.sort(comparator);
         return users;
     }
 
