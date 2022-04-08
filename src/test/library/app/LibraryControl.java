@@ -127,13 +127,10 @@ public class LibraryControl {
         printer.printMagazines(library.getSortedPublications(new AlphabeticalComparator()));
     }
 
-    private void printUsers() {
-        printer.printUsers(library.getSortedUsers(new Comparator<LibraryUser>() {
-            @Override
-            public int compare(LibraryUser p1, LibraryUser p2) {
-                return p1.getLastName().compareToIgnoreCase(p2.getLastName());
-            }
-        }));
+    private void printUsers() { //comparator is a functional interface
+        printer.printUsers(library.getSortedUsers((Comparator<LibraryUser>)
+                (p1, p2) -> p1.getLastName().compareToIgnoreCase(p2.getLastName())
+                ));
     }
 
     private void addUser() {
