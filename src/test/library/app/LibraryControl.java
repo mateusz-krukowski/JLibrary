@@ -105,7 +105,7 @@ public class LibraryControl {
 
     private void printBooks() {
         printer.printBooks(library.getSortedPublications(
-                Comparator.comparing(Book::getTitle, String.CASE_INSENSITIVE_ORDER)
+                Comparator.comparing(Publication::getTitle, String.CASE_INSENSITIVE_ORDER)
         ));
     }
 
@@ -125,14 +125,15 @@ public class LibraryControl {
     }
     private void printMagazines() {
         printer.printMagazines(library.getSortedPublications(
-                Comparator.comparing(Magazine::getTitle, String.CASE_INSENSITIVE_ORDER)
+                Comparator.comparing(Publication::getTitle, String.CASE_INSENSITIVE_ORDER)
         ));
     }
 
     private void printUsers() { //comparator is a functional interface
         printer.printUsers(library.getSortedUsers(
-                //(Comparator<User>)(o1, o2) -> o1.getLastName().compareToIgnoreCase(o2.getLastName()) //lambda
-                Comparator.comparing(User::getLastName, String.CASE_INSENSITIVE_ORDER) //method reference
+                //(Comparator<User>)//
+                (o1, o2) -> o1.getLastName().compareToIgnoreCase(o2.getLastName()) //lambda
+                //Comparator.comparing(User::getLastName, String.CASE_INSENSITIVE_ORDER) //method reference
         ));
     }
 

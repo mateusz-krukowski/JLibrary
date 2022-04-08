@@ -11,15 +11,15 @@ public class Library implements Serializable {
 
     private static final int INITIAL_CAPACITY = 10;
     private int publicationsNum = 0;
-    private Map<String, Publication> publications= new HashMap();
-    private Map<String, LibraryUser> users = new HashMap();
+    private HashMap<String, Publication> publications= new HashMap();
+    private HashMap<String, LibraryUser> users = new HashMap();
 
     public Map<String, Publication> getPublications() {
         return publications;
     }
 
-    public Collection<Publication> getSortedPublications(Comparator comparator) {
-        ArrayList<Publication> pub = new ArrayList<>(publications.values());
+    public Collection<Publication> getSortedPublications(Comparator<Publication> comparator) {
+        ArrayList<Publication> pub = new ArrayList<>(this.publications.values());
         pub.sort(comparator);
         return pub;
     }
@@ -28,10 +28,10 @@ public class Library implements Serializable {
         return users;
     }
 
-    public Collection<LibraryUser> getSortedUsers(Comparator comparator){
-        ArrayList<LibraryUser> users = new ArrayList<>(this.users.values());
-        users.sort(comparator);
-        return users;
+    public Collection<LibraryUser> getSortedUsers(Comparator<LibraryUser> comparator){
+        ArrayList<LibraryUser> u = new ArrayList<>(this.users.values());
+        u.sort(comparator);
+        return u;
     }
 
     public void addPublication(Publication publication){
