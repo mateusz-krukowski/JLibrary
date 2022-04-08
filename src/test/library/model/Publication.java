@@ -46,7 +46,7 @@ public abstract class Publication implements Serializable, Comparable<Publicatio
         return getTitle() + ", " + getPublisher() + ", " + getYear();
     }
 
-    public abstract String toCsv();
+
 
     @Override
     public int compareTo(Publication p){

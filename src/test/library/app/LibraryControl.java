@@ -6,11 +6,7 @@ import test.library.io.DataReader;
 import test.library.io.file.FileManager;
 import test.library.io.file.FileManagerBuilder;
 import test.library.model.*;
-import test.library.model.comparator.AlphabeticalComparator;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.InputMismatchException;
 
 public class LibraryControl {
@@ -26,7 +22,7 @@ public class LibraryControl {
         try{
             library = fileManager.importData();
         }
-        catch(DataImportException | InvalidDataException e){
+        catch(DataImportException | InvalidDataException | CheckListException e){
             printer.printLine(e.getMessage());
             printer.printLine("Zainicjowano nowa baze");
             library = new Library();
