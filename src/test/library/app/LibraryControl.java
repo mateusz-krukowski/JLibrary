@@ -106,7 +106,9 @@ public class LibraryControl {
     }
 
     private void printBooks() {
-        printer.printBooks(library.getSortedPublications(new AlphabeticalComparator()));
+        printer.printBooks(library.getSortedPublications((Comparator<Publication>)
+                (o1,o2)->o1.getTitle().compareToIgnoreCase(o2.getTitle())
+        ));
     }
 
     private void addMagazine() {
@@ -124,7 +126,9 @@ public class LibraryControl {
         } else printer.printLine("Brak wskazanego magazynu");
     }
     private void printMagazines() {
-        printer.printMagazines(library.getSortedPublications(new AlphabeticalComparator()));
+        printer.printMagazines(library.getSortedPublications((Comparator<Publication>)
+                (o1,o2) -> o1.getTitle().compareToIgnoreCase(o2.getTitle())
+        ));
     }
 
     private void printUsers() { //comparator is a functional interface
