@@ -6,6 +6,7 @@ import test.library.io.DataReader;
 import test.library.io.file.FileManager;
 import test.library.io.file.FileManagerBuilder;
 import test.library.model.*;
+import test.library.model.comparator.AlphabeticalComparator;
 
 import java.util.InputMismatchException;
 
@@ -104,7 +105,7 @@ public class LibraryControl {
     }
 
     private void printBooks() {
-        printer.printBooks(library.getPublications().values());
+        printer.printBooks(library.getSortedPublications(new AlphabeticalComparator()));
     }
 
     private void addMagazine() {
@@ -126,7 +127,7 @@ public class LibraryControl {
     }
 
     private void printUsers() {
-        printer.printUsers(library.getUsers().values());
+        printer.printUsers(library.getSortedUsers(new AlphabeticalComparator()));
     }
 
     private void addUser() {
